@@ -116,4 +116,63 @@ public GameBoard(){
      return filled;
   }
   
+  public boolean isEndState(){
+	  boolean result = false;
+	  if(this.isFull()){
+		  result = true;
+	  } else {
+		  result = isWinState();
+	  }
+	  return result;
+  }
+  
+  public boolean isWinState(){
+	  int markCounter = 0;
+	  
+	//check vertical
+      for(int i = 0; i < getSize();i++){
+         if(getFieldOf(i, lastMove.getCollumn()).equalsMark(lastMove.getMark())){
+            markCounter++;
+         }
+         
+      }
+      if(markCounter == getSize()){
+         return  true;
+      }
+      markCounter = 0;
+      //check horizontal
+      for(int i = 0; i < getSize();i++){
+         if(getFieldOf(lastMove.getRow(),i).equalsMark(lastMove.getMark())){
+            markCounter++;
+         }
+      }
+      if(markCounter == getSize()){
+         return true;
+      }
+      markCounter = 0;
+    //check diagonal top right to  left
+      for(int i = 0; i < getSize();i++){
+         if(getFieldOf(i,i).equalsMark(lastMove.getMark())){
+            markCounter++;
+         }
+      }
+      if(markCounter == getSize()){
+         return true;
+      }
+      markCounter = 0;
+    //check diagonal top left to  right
+      for(int i = getSize()-1; i>=0;i--){
+         if(getFieldOf(i,i).equalsMark(lastMove.getMark())){
+            markCounter++;
+         }
+      }
+      if(markCounter == getSize()){
+         return true;
+      }
+      
+	  return false;
+  }
+  
+  
+  
 }

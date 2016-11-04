@@ -65,24 +65,12 @@ public class MinimaxPlayer extends Player {
 	}
 
 	public int utility() {
-
+		
 		return 0;
 	}
 
 	public boolean terminalTest(GameBoard state) {
-		if(state.isFull()){
-			return true;
-		}
-		
-		//if x won
-		
-		//if o won
-		
-		return false;
-	}
-
-	public void createSearchTree() {
-
+		return state.isEndState();
 	}
 
 }
