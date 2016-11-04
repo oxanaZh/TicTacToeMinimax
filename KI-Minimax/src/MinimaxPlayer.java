@@ -47,7 +47,7 @@ public class MinimaxPlayer extends Player {
 
 	public int MaxValue(GameBoard state) {
 		if (terminalTest(state)) {
-			return utility();
+			return utility(state);
 		}
 
 		int v = Integer.MIN_VALUE;
@@ -64,9 +64,19 @@ public class MinimaxPlayer extends Player {
 		return 0;
 	}
 
-	public int utility() {
+	public int utility(GameBoard state) {
+		int utility = 0;
+		if(state.isFull() && !state.isWinState()){
+			return 0;
+		}
+		Field lastmove = state.getLastMove();
+		if(lastmove.equalsMark(getMark())){
+			utility = 1;
+		} else {
+			utility = -1;
+		}
 		
-		return 0;
+		return utility;
 	}
 
 	public boolean terminalTest(GameBoard state) {
