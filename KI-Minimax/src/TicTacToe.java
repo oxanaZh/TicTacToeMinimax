@@ -76,8 +76,9 @@ public class TicTacToe {
          for(int i = 0;i <2; i++){
             System.out.print(players[i].getName()+": \n");
             markedField = players[i].makeMove(gameBoard);
+            gameBoard.setLastMove(markedField);
             showGameBoard();            
-            if(hasWinner(markedField)){
+            if(hasWinner()){
                state = GameStates.END;
                players[i].setHasWon();
                System.out.print("Winner: "+players[i].getName()+"\n");
@@ -101,52 +102,8 @@ public class TicTacToe {
     * @param 
     * @return true wenn Markierung von Feld 3 mal hintereinandr auftrit (vrtikal,horizontal oder diagonal), sonst false
     */
-   private boolean hasWinner(Field f){
-      boolean hasWon = false;
-      int markCounter = 0;
-      
-      //check vertical
-      for(int i = 0; i < gameBoard.getSize();i++){
-         if(this.gameBoard.getFieldOf(i, f.getCollumn()).equalsMark(f.getMark())){
-            markCounter++;
-         }
-         
-      }
-      if(markCounter == gameBoard.getSize()){
-         hasWon=true;
-      }
-      markCounter = 0;
-      //check horizontal
-      for(int i = 0; i < gameBoard.getSize();i++){
-         if(this.gameBoard.getFieldOf(f.getRow(),i).equalsMark(f.getMark())){
-            markCounter++;
-         }
-      }
-      if(markCounter == gameBoard.getSize()){
-         hasWon=true;
-      }
-      markCounter = 0;
-    //check diagonal top right to  left
-      for(int i = 0; i < gameBoard.getSize();i++){
-         if(this.gameBoard.getFieldOf(i,i).equalsMark(f.getMark())){
-            markCounter++;
-         }
-      }
-      if(markCounter == gameBoard.getSize()){
-         hasWon=true;
-      }
-      markCounter = 0;
-    //check diagonal top left to  right
-      for(int i = gameBoard.getSize()-1; i>=0;i--){
-         if(this.gameBoard.getFieldOf(i,i).equalsMark(f.getMark())){
-            markCounter++;
-         }
-      }
-      if(markCounter == gameBoard.getSize()){
-         hasWon=true;
-      }
-      System.out.printf("has winner?: %b\n\n",hasWon);
-      return hasWon;
+   private boolean hasWinner(){
+      return gameBoard.isWinState();
    }
    public Player[] getPlayers(){
       return players;

@@ -4,8 +4,8 @@ public class MinimaxPlayer extends Player {
 
 	@Override
 	public Field makeMove(GameBoard board) {
-
-		return null;
+		
+		return Minimax(board);
 	}
 
 	public MinimaxPlayer(String name, Mark m) {
