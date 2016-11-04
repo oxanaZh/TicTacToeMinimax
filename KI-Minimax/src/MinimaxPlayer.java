@@ -44,6 +44,19 @@ public class MinimaxPlayer extends Player {
 
 		return moves;
 	}
+	
+	public Field Minimax(GameBoard state){
+		int val = Integer.MIN_VALUE;
+		Field move = null;
+		for(GameBoard s:successors(state)){
+			int v = MinValue(s);
+			if (val <= v){
+				val = v;
+				move = s.getLastMove();
+			}
+		}
+		return move;
+	}
 
 	public int MaxValue(GameBoard state) {
 		if (terminalTest(state)) {
@@ -53,15 +66,22 @@ public class MinimaxPlayer extends Player {
 		int v = Integer.MIN_VALUE;
 
 		for (GameBoard s : successors(state)) {
-
+			v = Math.max(v, MinValue(s));
 		}
-
-		return 0;
+		return v;
 	}
 
 	public int MinValue(GameBoard state) {
+		if (terminalTest(state)) {
+			return utility(state);
+		}
 
-		return 0;
+		int v = Integer.MAX_VALUE;
+
+		for (GameBoard s : successors(state)) {
+			v = Math.min(v, MinValue(s));
+		}
+		return v;
 	}
 
 	public int utility(GameBoard state) {
