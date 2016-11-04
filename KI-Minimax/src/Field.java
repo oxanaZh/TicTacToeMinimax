@@ -25,6 +25,10 @@ public class Field {
       }
           
    }
+   public static Field copyField(Field field){
+	   Field copy = new Field(field.getRow(), field.getCollumn(), field.getMark());
+	   return copy;
+   }
    
    public boolean isEmpty(){
       return empty;

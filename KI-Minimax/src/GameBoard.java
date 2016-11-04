@@ -2,18 +2,36 @@
 public class GameBoard {
    private Field[][] fields;
    private boolean full;
-   private int size = 3;
+   public static int size = 3;
    public GameBoard(){
-      fields = new Field[size][size];
-      clearFields();
-      full = false;
+      this(getEmptyFields());
    }
-   private void clearFields(){
+   public GameBoard(Field[][] fields){
+	      fields = GameBoard.copyFields(fields);
+	      full = false;
+   }
+   private static  Field[][] clearFields(Field[][] fields){
       for(int row=0;row<size;row++){
          for(int column=0;column<size;column++){
             fields[row][column] = new Field();
          }
       }
+      return fields;
+   }
+   public static Field[][] getEmptyFields(){
+	   Field[][] fields = new Field[size][size];
+	   fields = clearFields(fields);
+	   return fields;
+   }
+   public static Field[][] copyFields(Field[][] fields){
+	   Field[][] copy = new Field[size][size];
+	   for(int row=0;row<size;row++){
+		   for(int column=0;column<size;column++){
+			   copy[row][column] = Field.copyField(fields[row][column]);
+		   }
+	   }
+	   return copy;
+	   
    }
 /**
  * 
@@ -72,6 +90,10 @@ public class GameBoard {
    }
    public int getSize(){
       return this.size;
+   }
+   
+   public Field[][] getFields(){
+	   return this.fields;
    }
    
 }
