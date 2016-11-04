@@ -14,7 +14,7 @@ public GameBoard(){
     this(getEmptyFields());
   }
   public GameBoard(Field[][] fields){
-    fields = GameBoard.copyFields(fields);
+    this.fields = GameBoard.copyFields(fields);
     full = false;
   }
   private static  Field[][] clearFields(Field[][] fields){
