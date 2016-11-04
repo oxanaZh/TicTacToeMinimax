@@ -3,7 +3,14 @@ public class GameBoard {
   private Field[][] fields;
   private boolean full;
   public static int size = 3;
-  public GameBoard(){
+  private Field lastMove;
+  public Field getLastMove() {
+	return lastMove;
+}
+public void setLastMove(Field lastMove) {
+	this.lastMove = lastMove;
+}
+public GameBoard(){
     this(getEmptyFields());
   }
   public GameBoard(Field[][] fields){

@@ -36,6 +36,7 @@ public class MinimaxPlayer extends Player {
 				if (board.getFieldOf(row, column).isEmpty()) {
 					temp = new GameBoard(board.getFields());
 					temp.getFieldOf(row, column).setMark(getMark());
+					temp.setLastMove(temp.getFieldOf(row, column));
 					moves.add(temp);
 				}
 			}
