@@ -46,7 +46,7 @@ public class TicTacToe {
          while( !done){
             int order = rand.nextInt(spielerAnzahl);
             if(players[order] == null){
-               players[order]=new RandomPlayer(names[i],Mark.values()[order]);
+               players[order]=new MinimaxPlayer(names[i],Mark.values()[order]);
                done=true;
             }
          }
@@ -76,6 +76,7 @@ public class TicTacToe {
          for(int i = 0;i <2; i++){
             System.out.print(players[i].getName()+": \n");
             markedField = players[i].makeMove(gameBoard);
+            gameBoard.setField(markedField);
             gameBoard.setLastMove(markedField);
             showGameBoard();            
             if(hasWinner()){

@@ -20,22 +20,16 @@ public class MinimaxPlayer extends Player {
 	 * wählt den Zug, der zum Nachfolger mit der höchsten Bewertung führt
 	 * 
 	 */
-	public ArrayList<GameBoard> successors(GameBoard board) {
+	public ArrayList<GameBoard> successors(GameBoard board, Mark mark) {
 		ArrayList<GameBoard> moves = new ArrayList<>();
 
 		GameBoard temp;
-
-		/*
-		 * for(int i=0;i<3;i++){ for(int x=0;x<3;x++){ if(board.getFieldOf(i,
-		 * x).isEmpty()){ temp = new Field(i,x,getMark()); moves.add(temp); } }
-		 * }
-		 */
 
 		for (int row = 0; row < 3; row++) {
 			for (int column = 0; column < 3; column++) {
 				if (board.getFieldOf(row, column).isEmpty()) {
 					temp = new GameBoard(board.getFields());
-					temp.getFieldOf(row, column).setMark(getMark());
+					temp.setField(new Field(row, column, mark));
 					temp.setLastMove(temp.getFieldOf(row, column));
 					moves.add(temp);
 				}
@@ -48,7 +42,8 @@ public class MinimaxPlayer extends Player {
 	public Field Minimax(GameBoard state){
 		int val = Integer.MIN_VALUE;
 		Field move = null;
-		for(GameBoard s:successors(state)){
+		ArrayList<GameBoard> successors = successors(state, getMark());
+		for(GameBoard s : successors){
 			int v = MinValue(s);
 			if (val <= v){
 				val = v;
@@ -64,8 +59,8 @@ public class MinimaxPlayer extends Player {
 		}
 
 		int v = Integer.MIN_VALUE;
-
-		for (GameBoard s : successors(state)) {
+		ArrayList<GameBoard> successors = successors(state, getMark());
+		for (GameBoard s : successors) {
 			v = Math.max(v, MinValue(s));
 		}
 		return v;
@@ -77,9 +72,9 @@ public class MinimaxPlayer extends Player {
 		}
 
 		int v = Integer.MAX_VALUE;
-
-		for (GameBoard s : successors(state)) {
-			v = Math.min(v, MinValue(s));
+		ArrayList<GameBoard> successors = successors(state, getMark()==Mark.X? Mark.O : Mark.X);
+		for (GameBoard s : successors) {
+			v = Math.min(v, MaxValue(s));
 		}
 		return v;
 	}

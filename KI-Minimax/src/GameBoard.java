@@ -4,12 +4,8 @@ public class GameBoard {
   private boolean full;
   public static int size = 3;
   private Field lastMove;
-  public Field getLastMove() {
-	return lastMove;
-}
-public void setLastMove(Field lastMove) {
-	this.lastMove = lastMove;
-}
+
+ 
 public GameBoard(){
     this(getEmptyFields());
   }
@@ -20,7 +16,7 @@ public GameBoard(){
   private static  Field[][] clearFields(Field[][] fields){
     for(int row=0;row<size;row++){
       for(int column=0;column<size;column++){
-        fields[row][column] = new Field();
+        fields[row][column] = new Field(row, column, Mark.EMPTY);
       }
     }
     return fields;
@@ -172,6 +168,12 @@ public GameBoard(){
       
 	  return false;
   }
+  public Field getLastMove() {
+		return lastMove;
+	}
+	public void setLastMove(Field lastMove) {
+		this.lastMove = lastMove;
+	}
   
   
   
