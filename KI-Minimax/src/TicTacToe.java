@@ -41,7 +41,7 @@ public class TicTacToe {
     * @param names
     */
    private void setPlayers(String[] names ){
-      for(int i = 0;i<spielerAnzahl;i++){
+      /*for(int i = 0;i<spielerAnzahl;i++){
          boolean done = false;
          while( !done){
             int order = rand.nextInt(spielerAnzahl);
@@ -50,7 +50,11 @@ public class TicTacToe {
                done=true;
             }
          }
-      }
+      }*/
+	   
+	   players[0] = new RandomPlayer(names[0], Mark.values()[0]);
+	   players[1] = new MinimaxPlayer(names[1], Mark.O);
+	   
    }
    
    private void showGameBoard(){
@@ -77,6 +81,8 @@ public class TicTacToe {
             System.out.print(players[i].getName()+": \n");
             markedField = players[i].makeMove(gameBoard);
             gameBoard.setLastMove(markedField);
+            gameBoard.setField(markedField);
+            System.out.println(markedField.getRow() + " " + markedField.getCollumn()  );
             showGameBoard();            
             if(hasWinner()){
                state = GameStates.END;
