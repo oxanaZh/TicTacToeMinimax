@@ -157,8 +157,8 @@ public GameBoard(){
       }
       markCounter = 0;
     //check diagonal top left to  right
-      for(int i = getSize()-1; i>=0;i--){
-         if(getFieldOf(i,i).equalsMark(lastMove.getMark())){
+      for(int column = size-1, row = 0; column>=0 && row < size ;column--, row++){
+         if(getFieldOf(row,column).equalsMark(lastMove.getMark())){
             markCounter++;
          }
       }
