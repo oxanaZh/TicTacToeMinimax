@@ -14,7 +14,7 @@ public class TicTacToe {
     * kann ohne argumente aufgeruffen werden und ruft zweiten Knstruktor auf mit default Spielernamen
     */  
    public TicTacToe(){
-      this("Player1","Player2");
+      this("Player1","Player2", PlayerType.RANDOM,  PlayerType.RANDOM);
    }
    
    /**
@@ -22,10 +22,11 @@ public class TicTacToe {
     * Inizialisiert Spieler Array, Spielbrett
     * @param names
     */
-   public TicTacToe(String... names){
+   public TicTacToe(String name1, String name2, PlayerType pl1,  PlayerType pl2){
       rand = new Random();
       players = new Player[spielerAnzahl];
-      setPlayers(names);
+      players[0] = setPlayer(name1, pl1, Mark.X);
+      players[1] = setPlayer(name2, pl2, Mark.O);
       setGameBoard();
    }
    
@@ -40,19 +41,20 @@ public class TicTacToe {
     * für jede Name in names array wird zufällig ein freie platz im players array gesucht.
     * @param names
     */
-   private void setPlayers(String[] names ){
-      /*for(int i = 0;i<spielerAnzahl;i++){
-         boolean done = false;
-         while( !done){
-            int order = rand.nextInt(spielerAnzahl);
-            if(players[order] == null){
-               players[order]=new MinimaxPlayer(names[i],Mark.values()[order]);
-               done=true;
-            }
-         }
-      }*/
-	   players[0] = new MinimaxPlayer(names[0],Mark.X);
-	   players[1] = new RandomPlayer(names[0],Mark.O);
+   private Player setPlayer(String name1, PlayerType type, Mark mark){
+	   Player player = null;
+     switch (type) {
+	case RANDOM:
+		player = new RandomPlayer(name1,mark);
+		break;
+	case MINIMAX:
+		player = new MinimaxPlayer(name1,mark);
+		break;
+	default:
+		player= new RandomPlayer(name1,mark);
+		break;
+	}
+	   return player;
    }
    
    private void showGameBoard(){
