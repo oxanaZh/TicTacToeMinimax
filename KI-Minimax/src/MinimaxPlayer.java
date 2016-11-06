@@ -44,7 +44,7 @@ public class MinimaxPlayer extends Player {
 		Field move = null;
 		ArrayList<GameBoard> successors = successors(state, getMark());
 		for(GameBoard s : successors){
-			int v = MinValue(s);
+			int v = MinValue(s, Integer.MIN_VALUE, Integer.MAX_VALUE);
 			if (val <= v){
 				val = v;
 				move = s.getLastMove();
@@ -53,7 +53,7 @@ public class MinimaxPlayer extends Player {
 		return move;
 	}
 
-	public int MaxValue(GameBoard state) {
+	public int MaxValue(GameBoard state, int alpha, int beta) {
 		if (terminalTest(state)) {
 			return utility(state);
 		}
@@ -61,12 +61,16 @@ public class MinimaxPlayer extends Player {
 		int v = Integer.MIN_VALUE;
 		ArrayList<GameBoard> successors = successors(state, getMark());
 		for (GameBoard s : successors) {
-			v = Math.max(v, MinValue(s));
+			v = Math.max(v, MinValue(s, alpha, beta));
+			if(v>=beta){
+				return v;
+			}
+			alpha = Math.max(alpha,v);
 		}
 		return v;
 	}
 
-	public int MinValue(GameBoard state) {
+	public int MinValue(GameBoard state, int alpha, int beta) {
 		if (terminalTest(state)) {
 			return utility(state);
 		}
@@ -74,7 +78,11 @@ public class MinimaxPlayer extends Player {
 		int v = Integer.MAX_VALUE;
 		ArrayList<GameBoard> successors = successors(state, getMark()==Mark.X? Mark.O : Mark.X);
 		for (GameBoard s : successors) {
-			v = Math.min(v, MaxValue(s));
+			v = Math.min(v, MaxValue(s, alpha, beta));
+			if(v<=alpha){
+				return v;
+			}
+			beta = Math.min(beta, v);
 		}
 		return v;
 	}

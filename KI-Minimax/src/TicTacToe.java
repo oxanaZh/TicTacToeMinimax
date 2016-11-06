@@ -41,7 +41,7 @@ public class TicTacToe {
     * @param names
     */
    private void setPlayers(String[] names ){
-      for(int i = 0;i<spielerAnzahl;i++){
+      /*for(int i = 0;i<spielerAnzahl;i++){
          boolean done = false;
          while( !done){
             int order = rand.nextInt(spielerAnzahl);
@@ -50,7 +50,9 @@ public class TicTacToe {
                done=true;
             }
          }
-      }
+      }*/
+	   players[0] = new MinimaxPlayer(names[0],Mark.X);
+	   players[1] = new RandomPlayer(names[0],Mark.O);
    }
    
    private void showGameBoard(){
