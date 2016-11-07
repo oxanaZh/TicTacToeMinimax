@@ -1,6 +1,12 @@
 import java.util.ArrayList;
 
 public class MinimaxPlayer extends Player {
+	
+	private int nodeCounter = 0;
+	
+	public int getNodeCounter(){
+		return this.nodeCounter;
+	}
 
 	@Override
 	public Field makeMove(GameBoard board) {
@@ -63,6 +69,7 @@ public class MinimaxPlayer extends Player {
 		for (GameBoard s : successors) {
 			v = Math.max(v, MinValue(s));
 		}
+		nodeCounter++;
 		return v;
 	}
 
@@ -76,6 +83,7 @@ public class MinimaxPlayer extends Player {
 		for (GameBoard s : successors) {
 			v = Math.min(v, MaxValue(s));
 		}
+		nodeCounter++;
 		return v;
 	}
 
