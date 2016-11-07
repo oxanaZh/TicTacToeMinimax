@@ -5,6 +5,13 @@ public class TicTacToeMain {
          
       TicTacToe game = new  TicTacToe("MiniMax", "Random", PlayerType.MINIMAX, PlayerType.RANDOM);
       game.play();
+      
+      System.out.println("Count Nodes AVG: " + game.getNodeCounterAverage());
+      
+      game = new  TicTacToe("MiniMax", "MaxMini", PlayerType.MINIMAX, PlayerType.MINIMAX);
+      game.play();
+      
+      System.out.println("Count Nodes AVG: " + game.getNodeCounterAverage());
    }
 
 }

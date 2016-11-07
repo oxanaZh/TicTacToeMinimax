@@ -113,4 +113,21 @@ public class TicTacToe {
    public Player[] getPlayers(){
       return players;
    }
+   
+   public int getNodeCounterAverage(){
+	   int average = 0;
+	   int divisor = 0;
+	   for(int i=0;i<players.length;i++){
+		   if(players[i] instanceof RandomPlayer){
+			   continue;
+		   }
+		   MinimaxPlayer mp = (MinimaxPlayer) players[i];
+		   average += mp.getNodeCounter(); 
+		   System.out.println("mp solo " + mp.getNodeCounter());
+		   divisor++;
+	   }
+	   average = average / divisor;
+	   return average;
+   }
+   
 }
