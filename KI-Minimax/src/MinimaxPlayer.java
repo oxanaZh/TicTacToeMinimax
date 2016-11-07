@@ -5,7 +5,7 @@ public class MinimaxPlayer extends Player {
 	@Override
 	public Field makeMove(GameBoard board) {
 		
-		return Minimax(board);
+		return negaMaxInit(board);
 	}
 
 	public MinimaxPlayer(String name, Mark m) {
@@ -38,45 +38,40 @@ public class MinimaxPlayer extends Player {
 
 		return moves;
 	}
+
 	
-	public Field Minimax(GameBoard state){
-		int val = Integer.MIN_VALUE;
+	public Field negaMaxInit(GameBoard state){
 		Field move = null;
+		int maxWert = Integer.MIN_VALUE;
 		ArrayList<GameBoard> successors = successors(state, getMark());
 		for(GameBoard s : successors){
-			int v = MinValue(s);
-			if (val <= v){
-				val = v;
+			int v = negaMax(s,getMark());
+			if (v >= maxWert){
+				maxWert = v;
 				move = s.getLastMove();
 			}
 		}
 		return move;
 	}
-
-	public int MaxValue(GameBoard state) {
+	
+	public int negaMax(GameBoard state, Mark mark){
 		if (terminalTest(state)) {
 			return utility(state);
 		}
-
-		int v = Integer.MIN_VALUE;
-		ArrayList<GameBoard> successors = successors(state, getMark());
-		for (GameBoard s : successors) {
-			v = Math.max(v, MinValue(s));
+		
+		int maxWert = Integer.MIN_VALUE;
+		ArrayList<GameBoard> successors = successors(state, mark);
+		for(GameBoard s: successors){
+			
+			int v = -1 * negaMax(s,mark==Mark.X? Mark.O : Mark.X);
+			if(v > maxWert){
+				maxWert = v;
+			}
+			
 		}
-		return v;
-	}
-
-	public int MinValue(GameBoard state) {
-		if (terminalTest(state)) {
-			return utility(state);
-		}
-
-		int v = Integer.MAX_VALUE;
-		ArrayList<GameBoard> successors = successors(state, getMark()==Mark.X? Mark.O : Mark.X);
-		for (GameBoard s : successors) {
-			v = Math.min(v, MaxValue(s));
-		}
-		return v;
+		
+		return maxWert;
+		
 	}
 
 	public int utility(GameBoard state) {
