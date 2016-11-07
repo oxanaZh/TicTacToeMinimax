@@ -1,4 +1,4 @@
 
 public enum PlayerType {
-	MINIMAX, RANDOM;
+	RANDOM, MINIMAX, MINIMAX_PRUNING;
 }

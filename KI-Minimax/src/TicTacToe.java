@@ -50,6 +50,9 @@ public class TicTacToe {
 	case MINIMAX:
 		player = new MinimaxPlayer(name1,mark);
 		break;
+	case MINIMAX_PRUNING:
+		player = new MinimaxPruningPlayer(name1,mark);
+		break;
 	default:
 		player= new RandomPlayer(name1,mark);
 		break;
@@ -128,6 +131,30 @@ public class TicTacToe {
 	   }
 	   average = average / divisor;
 	   return average;
+   }
+   
+   public int[] getPlayersNodeCounter(){
+	   int[] counters = new int[2];
+	   
+	   for(int i=0; i < spielerAnzahl; i++){
+		   if(players[i] instanceof RandomPlayer){
+			   counters[i] = -1;
+		   } else if(players[i] instanceof MinimaxPlayer){
+			   
+			   MinimaxPlayer mp = (MinimaxPlayer) players[i];
+			   counters[i] = mp.getNodeCounter();
+			   
+		   } else if(players[i] instanceof MinimaxPruningPlayer){
+			   
+			   MinimaxPruningPlayer mp = (MinimaxPruningPlayer) players[i];
+			   counters[i] = mp.getNodeCounter();
+			   
+		   } 
+		   
+		   
+	   }
+	   
+	   return counters;
    }
    
 }
